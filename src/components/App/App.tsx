@@ -1,16 +1,13 @@
-import React from "react";
+import React from "react"
 
-import { Image } from "../UI";
-import logo from "assets/logo.svg";
+import { MainLayout } from "../MainLayout"
 
-import s from "./App.module.scss";
+import s from "./App.module.scss"
 
 export const App: React.FC = () => {
   return (
     <div className={s.container}>
-      <header className={s.header}>
-        <Image src={logo} text="Learn React" />
-      </header>
+      <MainLayout />
     </div>
-  );
-};
+  )
+}

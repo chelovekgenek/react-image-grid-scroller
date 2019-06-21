@@ -1,7 +1,11 @@
-import { combineReducers } from "redux";
+import { combineReducers, Reducer } from "redux"
 
-import { reducer as images } from "./images";
+import { reducer as images, IState as IStateImages } from "./images"
 
-export const reducers = combineReducers({
-  images
-});
+export interface IReduxState {
+  images: IStateImages
+}
+
+export const reducers: Reducer<IReduxState> = combineReducers({
+  images,
+})
