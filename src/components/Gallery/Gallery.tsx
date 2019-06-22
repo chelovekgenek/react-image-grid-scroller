@@ -1,28 +1,33 @@
 import React from "react"
 import { connect } from "react-redux"
-import StackGrid from "react-stack-grid"
+import InfiniteScroll from "react-infinite-scroller"
 
-import { getFetching, getData } from "store/entities/images"
+import { getRecentRequest, computeHasMorePages } from "store/entities/images"
 import { IReduxState } from "store/entities"
 
-import { GalleryItem } from "./GalleryItem"
+import GalleryContent from "./GalleryContent"
+import GalleryFooter from "./GalleryFooter"
 
 interface IStateProps {
-  fetching: IReduxState["images"]["fetching"]
-  data: IReduxState["images"]["data"]
+  hasMore: boolean
 }
+interface IDispatchProps {
+  getImages: typeof getRecentRequest
+}
+interface IProps extends IStateProps, IDispatchProps {}
 
-interface IProps extends IStateProps {}
-
-export const Gallery: React.FC<IProps> = ({ data }) => (
-  <StackGrid columnWidth={180} duration={0} monitorImagesLoaded>
-    {data.allIds.map(key => (
-      <GalleryItem key={key} data={data.byId[key]} />
-    ))}
-  </StackGrid>
+export const Gallery: React.FC<IProps> = ({ getImages, hasMore }) => (
+  <InfiniteScroll loadMore={getImages} hasMore={hasMore}>
+    <GalleryContent />
+    <GalleryFooter />
+  </InfiniteScroll>
 )
 
-export default connect((state: IReduxState) => ({
-  fetching: getFetching(state),
-  data: getData(state),
-}))(Gallery)
+export default connect(
+  (state: IReduxState) => ({
+    hasMore: computeHasMorePages(state),
+  }),
+  {
+    getImages: getRecentRequest,
+  },
+)(Gallery)

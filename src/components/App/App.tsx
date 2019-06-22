@@ -1,11 +1,11 @@
 import React from "react"
 
-import { MainLayout } from "components/MainLayout"
+import { Gallery } from "components/Gallery"
 
 import s from "./App.module.scss"
 
 export const App: React.FC = () => (
   <div className={s.container}>
-    <MainLayout />
+    <Gallery />
   </div>
 )

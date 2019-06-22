@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+
+  .spinner {
+    animation: GalleryFooter-spinner infinite 4s linear;
+    height: 240px;
+    pointer-events: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@keyframes GalleryFooter-spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
