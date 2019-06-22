@@ -17,7 +17,7 @@ const initialState: IState = {
   pagination: {
     page: 0,
     pages: 1,
-    perpage: 20,
+    perpage: 10,
     total: 0,
   },
 }

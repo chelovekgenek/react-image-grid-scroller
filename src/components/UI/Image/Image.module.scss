@@ -1,4 +1,12 @@
-.container {
-  width: 180px;
-  height: 250px;
+.helper {
+  display: inline-block;
+  width: inherit !important;
+  height: 100%;
+  vertical-align: middle;
+}
+.image {
+  width: 100% !important;
+  height: auto;
+  max-height: 250px;
+  vertical-align: middle;
 }

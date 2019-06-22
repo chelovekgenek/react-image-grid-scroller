@@ -21,6 +21,7 @@
     ]
   },
   "dependencies": {
+    "@types/antd": "^1.0.0",
     "@types/jest": "24.0.15",
     "@types/lodash": "^4.14.134",
     "@types/node": "12.0.8",
@@ -29,6 +30,7 @@
     "@types/react-infinite-scroller": "^1.2.1",
     "@types/react-redux": "^7.1.0",
     "@types/redux-actions": "^2.6.1",
+    "antd": "^3.19.7",
     "flickr-sdk": "^3.9.0",
     "lodash": "^4.17.11",
     "node-sass": "^4.12.0",

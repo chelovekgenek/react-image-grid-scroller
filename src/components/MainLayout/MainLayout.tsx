@@ -1,31 +1,39 @@
 import * as React from "react"
 import { connect } from "react-redux"
-import StackGrid from "react-stack-grid"
+import InfiniteScroll from "react-infinite-scroller"
 
 import { IReduxState } from "store/entities"
 
-import { Image } from "../UI"
-import { buildPhotoUrl } from "helpers"
-import { getFetching, getData } from "store/entities/images"
+import { getRecentRequest, computeHasMorePages } from "store/entities/images"
+import { Gallery } from "components/Gallery"
 
 interface IStateProps {
-  fetching: IReduxState["images"]["fetching"]
-  data: IReduxState["images"]["data"]
+  hasMore: boolean
+}
+interface IDispatchProps {
+  getImages: typeof getRecentRequest
+}
+interface IProps extends IStateProps, IDispatchProps {}
+
+export class MainLayout extends React.PureComponent<IProps> {
+  componentDidMount() {
+    this.props.getImages()
+  }
+  render() {
+    const { getImages, hasMore } = this.props
+    return (
+      <InfiniteScroll loadMore={getImages} hasMore={hasMore} initialLoad={false}>
+        <Gallery />
+      </InfiniteScroll>
+    )
+  }
 }
 
-interface IProps extends IStateProps {}
-
-export const MainLayout: React.FC<IProps> = ({ data }) => (
-  <div>
-    <StackGrid columnWidth={180}>
-      {data.allIds.map(key => (
-        <Image key={key} src={buildPhotoUrl(data.byId[key])} />
-      ))}
-    </StackGrid>
-  </div>
-)
-
-export default connect((state: IReduxState) => ({
-  fetching: getFetching(state),
-  data: getData(state),
-}))(MainLayout)
+export default connect(
+  (state: IReduxState) => ({
+    hasMore: computeHasMorePages(state),
+  }),
+  {
+    getImages: getRecentRequest,
+  },
+)(MainLayout)

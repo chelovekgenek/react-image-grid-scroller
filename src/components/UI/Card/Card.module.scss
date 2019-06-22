@@ -1,0 +1,10 @@
+.container {
+  height: 300px;
+  width: 180px;
+  :global(.ant-card-cover) {
+    height: 250px;
+    & > * {
+      display: inline-flex;
+    }
+  }
+}
