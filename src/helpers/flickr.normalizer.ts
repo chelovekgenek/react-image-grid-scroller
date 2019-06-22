@@ -1,18 +1,13 @@
-import { IFlickrResponseBody, IFlickrPagination, IFlickrNormalizedPhotos } from "./flickr.types"
+import { IFlickrResBody, IFlickrPagination, IFlickrNormalizedPhotos } from "./flickr.types"
 
-export const extractPagination = ({
-  page,
-  pages,
-  perpage,
-  total,
-}: IFlickrResponseBody["photos"]): IFlickrPagination => ({
+export const extractPagination = ({ page, pages, perpage, total }: IFlickrResBody["photos"]): IFlickrPagination => ({
   page,
   pages,
   perpage,
   total,
 })
 
-export const normalizePhotos = (data: IFlickrResponseBody): IFlickrNormalizedPhotos => {
+export const normalizePhotos = (data: IFlickrResBody): IFlickrNormalizedPhotos => {
   const result: IFlickrNormalizedPhotos = {
     allIds: [],
     byId: {},

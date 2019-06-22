@@ -1,11 +1,12 @@
 import Flickr from "flickr-sdk"
 
-import { IFlickrResponse, IFlickrResponseBody, IFlickrPhoto } from "./flickr.types"
+import { IFlickrRes, IFlickrResBody, IFlickrPhoto, IFlickrReqParams } from "./flickr.types"
 
 const flickr = new Flickr(process.env.REACT_APP_FLICKR_API_KEY!)
 
 // https://www.flickr.com/services/api/misc.urls.html
 export const buildPhotoUrl = (payload: IFlickrPhoto) =>
-  `https://farm${payload.farm}.staticflickr.com/${payload.server}/${payload.id}_${payload.secret}.jpg`
+  `https://farm${payload.farm}.staticflickr.com/${payload.server}/${payload.id}_${payload.secret}_n.jpg`
 
-export const getRecentPhotos = (): IFlickrResponse<IFlickrResponseBody> => flickr.photos.getRecent()
+export const getRecentPhotos = (params?: IFlickrReqParams): IFlickrRes<IFlickrResBody> =>
+  flickr.photos.getRecent(params)

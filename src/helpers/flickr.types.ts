@@ -1,3 +1,8 @@
+export interface IFlickrReqParams {
+  page?: number
+  perpage?: number
+}
+
 export interface IFlickrPhoto {
   id: string
   title: string
@@ -14,14 +19,14 @@ export interface IFlickrPagination {
   total: number
 }
 
-export interface IFlickrResponseBody {
+export interface IFlickrResBody {
   photos: {
     photo: Array<IFlickrPhoto>
   } & IFlickrPagination
   stat: "ok"
 }
 
-export interface IFlickrResponse<T> {
+export interface IFlickrRes<T> {
   body: T
 }
 

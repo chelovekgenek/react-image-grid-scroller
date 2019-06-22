@@ -1,4 +1,5 @@
-import { TActionGetRecentRequest, TActionGetRecentSuccess, IGetRecentSuccessPayload } from "./action.types"
+import { IGetRecentSuccessPayload } from "./action.types"
+import { createAction } from "redux-actions"
 
 export enum E {
   API__GET_RECENT__REQUEST = "images/api/getRecent/request",
@@ -6,10 +7,5 @@ export enum E {
   API__GET_RECENT__FAILURE = "images/api/getRecent/failure",
 }
 
-export const getRecentRequest: TActionGetRecentRequest = () => ({
-  type: E.API__GET_RECENT__REQUEST,
-})
-export const getRecentSuccess: TActionGetRecentSuccess = (payload: IGetRecentSuccessPayload) => ({
-  type: E.API__GET_RECENT__SUCCESS,
-  payload,
-})
+export const getRecentRequest = createAction(E.API__GET_RECENT__REQUEST)
+export const getRecentSuccess = createAction<IGetRecentSuccessPayload>(E.API__GET_RECENT__SUCCESS)

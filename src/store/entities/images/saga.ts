@@ -1,13 +1,22 @@
-import { takeEvery, call, put } from "redux-saga/effects"
+import { takeEvery, call, put, select } from "redux-saga/effects"
 
-import { extractPagination, normalizePhotos, IFlickrResponseBody } from "helpers"
+import { extractPagination, normalizePhotos, IFlickrResBody, IFlickrReqParams } from "helpers"
 
 import * as api from "./api"
 import { E, getRecentSuccess } from "./actions"
+import { getPagination } from "./selectors"
+import { IState } from "./reducer"
 
 function* handleGetRecent() {
   try {
-    const images: IFlickrResponseBody = yield call(api.getRecent)
+    const { page, perpage, pages }: IState["pagination"] = yield select(getPagination)
+
+    let params: IFlickrReqParams = { perpage }
+    if (page < pages) {
+      params.page = page + 1
+    }
+
+    const images: IFlickrResBody = yield call(api.getRecent, params)
     const pagination = yield call(extractPagination, images.photos)
     const data = yield call(normalizePhotos, images)
     yield put(getRecentSuccess({ pagination, data }))

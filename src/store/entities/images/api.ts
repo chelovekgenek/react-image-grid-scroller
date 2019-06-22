@@ -1,3 +1,3 @@
-import { getRecentPhotos } from "helpers"
+import { getRecentPhotos, IFlickrReqParams } from "helpers"
 
-export const getRecent = async () => (await getRecentPhotos()).body
+export const getRecent = async (params: IFlickrReqParams) => (await getRecentPhotos(params)).body
