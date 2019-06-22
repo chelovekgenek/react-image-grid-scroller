@@ -10,15 +10,10 @@ interface IProps {
 export const GalleryItem: React.FC<IProps> = ({ data }) => {
   const src = buildPhotoUrl(data)
   return (
-    <Card
-      title={data.title}
-      cover={
-        <Tooltip title={src}>
-          <div>
-            <Image src={src} alt={data.title} />
-          </div>
-        </Tooltip>
-      }
-    />
+    <Tooltip title={src}>
+      <div>
+        <Card title={data.title} cover={<Image src={src} alt={data.title} />} />
+      </div>
+    </Tooltip>
   )
 }

@@ -15,7 +15,7 @@ interface IStateProps {
 interface IProps extends IStateProps {}
 
 export const Gallery: React.FC<IProps> = ({ data }) => (
-  <StackGrid columnWidth={180}>
+  <StackGrid columnWidth={180} duration={0} monitorImagesLoaded>
     {data.allIds.map(key => (
       <GalleryItem key={key} data={data.byId[key]} />
     ))}

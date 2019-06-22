@@ -15,19 +15,11 @@ interface IDispatchProps {
 }
 interface IProps extends IStateProps, IDispatchProps {}
 
-export class MainLayout extends React.PureComponent<IProps> {
-  componentDidMount() {
-    this.props.getImages()
-  }
-  render() {
-    const { getImages, hasMore } = this.props
-    return (
-      <InfiniteScroll loadMore={getImages} hasMore={hasMore} initialLoad={false}>
-        <Gallery />
-      </InfiniteScroll>
-    )
-  }
-}
+export const MainLayout: React.FC<IProps> = ({ getImages, hasMore }) => (
+  <InfiniteScroll loadMore={getImages} hasMore={hasMore}>
+    <Gallery />
+  </InfiniteScroll>
+)
 
 export default connect(
   (state: IReduxState) => ({
