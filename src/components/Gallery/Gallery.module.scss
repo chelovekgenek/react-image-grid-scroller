@@ -1,0 +1,16 @@
+@import "styles/_vars.scss";
+
+.header {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  color: antiquewhite;
+  font-size: medium;
+  font-weight: 400;
+}
+
+.content {
+  background-color: $contentThemeColor;
+  padding: 0 50px;
+  margin-top: 90px;
+}

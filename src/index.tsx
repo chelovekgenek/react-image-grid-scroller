@@ -8,7 +8,7 @@ import * as serviceWorker from "./serviceWorker"
 import { App } from "components"
 
 import "antd/dist/antd.css"
-import "styles/index.css"
+import "styles/index.scss"
 
 ReactDOM.render(
   <Provider store={store}>

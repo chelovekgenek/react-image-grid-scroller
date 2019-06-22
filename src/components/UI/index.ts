@@ -1,3 +1,5 @@
 export * from "./Image"
 export * from "./Card"
 export * from "./Tooltip"
+export * from "./Layout"
+export * from "./Grid"
