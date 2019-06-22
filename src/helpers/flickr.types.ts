@@ -1,6 +1,6 @@
 export interface IFlickrReqParams {
   page?: number
-  perpage?: number
+  per_page?: number
 }
 
 export interface IFlickrPhoto {

@@ -1,6 +1,5 @@
-import { merge, union } from "lodash/fp"
+import { merge, assign } from "lodash/fp"
 import { handleActions } from "redux-actions"
-import { assign } from "lodash/fp"
 
 import { IFlickrPagination, IFlickrNormalizedPhotos } from "helpers"
 
@@ -17,8 +16,8 @@ const initialState: IState = {
   data: { byId: {}, allIds: [] },
   pagination: {
     page: 0,
-    pages: 0,
-    perpage: 100,
+    pages: 1,
+    perpage: 20,
     total: 0,
   },
 }
@@ -29,15 +28,17 @@ export const reducer = handleActions(
       assign(state, {
         fetching: true,
       }),
-    [E.API__GET_RECENT__SUCCESS]: (state, { payload }) =>
-      assign(state, {
+    [E.API__GET_RECENT__SUCCESS]: (state, { payload }) => {
+      const nextIds = merge(state.data.byId, payload.data)
+      return assign(state, {
         fetching: false,
         pagination: payload.pagination,
         data: {
-          byId: merge(state.data.byId, payload.data.byId),
-          allIds: union(state.data.allIds, payload.data.allIds),
+          byId: nextIds,
+          allIds: Object.keys(nextIds),
         },
-      }),
+      })
+    },
   },
   initialState,
 )

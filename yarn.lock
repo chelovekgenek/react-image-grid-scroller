@@ -8656,6 +8656,11 @@ react-error-overlay@^5.1.6:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
   integrity sha512-X1Y+0jR47ImDVr54Ab6V9eGk0Hnu7fVWGeHQSOXHf/C2pF9c6uy3gef8QUeuUiWlNb0i08InPSE5a/KJzNzw1Q==
 
+react-image-lazy-load-component@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-image-lazy-load-component/-/react-image-lazy-load-component-0.2.0.tgz#83777e5a4c65d5090468be6f0dcf953f4b767716"
+  integrity sha512-9Eyog6PsyawC70q9BiBmp9wyOsoyWV/u9S82JcLFGB/a6RC6utFANkIwyV0147hhjgPWFhiJzt1s0DMPFfSbrQ==
+
 react-infinite-scroller@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/react-infinite-scroller/-/react-infinite-scroller-1.2.4.tgz#f67eaec4940a4ce6417bebdd6e3433bfc38826e9"

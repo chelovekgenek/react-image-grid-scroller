@@ -1,6 +1,6 @@
-import { IFlickrNormalizedPhotos, IFlickrPagination } from "helpers"
+import { IFlickrPagination, IFlickrPhoto } from "helpers"
 
 export interface IGetRecentSuccessPayload {
-  data: IFlickrNormalizedPhotos
+  data: { [key: string]: IFlickrPhoto }
   pagination: IFlickrPagination
 }

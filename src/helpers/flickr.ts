@@ -1,6 +1,6 @@
 import Flickr from "flickr-sdk"
 
-import { IFlickrRes, IFlickrResBody, IFlickrPhoto, IFlickrReqParams } from "./flickr.types"
+import { IFlickrRes, IFlickrResBody, IFlickrPhoto, IFlickrReqParams, IFlickrPagination } from "./flickr.types"
 
 const flickr = new Flickr(process.env.REACT_APP_FLICKR_API_KEY!)
 
@@ -10,3 +10,10 @@ export const buildPhotoUrl = (payload: IFlickrPhoto) =>
 
 export const getRecentPhotos = (params?: IFlickrReqParams): IFlickrRes<IFlickrResBody> =>
   flickr.photos.getRecent(params)
+
+export const extractPagination = ({ photos: { page, pages, perpage, total } }: IFlickrResBody): IFlickrPagination => ({
+  page,
+  pages,
+  perpage,
+  total,
+})

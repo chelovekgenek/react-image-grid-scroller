@@ -15,17 +15,15 @@ interface IStateProps {
 
 interface IProps extends IStateProps {}
 
-export const MainLayout: React.FC<IProps> = ({ data }) => {
-  return (
-    <div>
-      <StackGrid columnWidth={180}>
-        {data.allIds.map(key => (
-          <Image key={key} src={buildPhotoUrl(data.byId[key])} />
-        ))}
-      </StackGrid>
-    </div>
-  )
-}
+export const MainLayout: React.FC<IProps> = ({ data }) => (
+  <div>
+    <StackGrid columnWidth={180}>
+      {data.allIds.map(key => (
+        <Image key={key} src={buildPhotoUrl(data.byId[key])} />
+      ))}
+    </StackGrid>
+  </div>
+)
 
 export default connect((state: IReduxState) => ({
   fetching: getFetching(state),
