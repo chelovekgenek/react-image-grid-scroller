@@ -4,6 +4,7 @@ import { handleActions } from "redux-actions"
 import { IFlickrPagination, IFlickrNormalizedPhotos } from "helpers"
 
 import { E } from "./actions"
+import { IActionGetRecentSuccess } from "./action.types"
 
 export interface IState {
   fetching: boolean
@@ -17,7 +18,7 @@ const initialState: IState = {
   pagination: {
     page: 0,
     pages: 1,
-    perpage: 20,
+    perpage: 10,
     total: 0,
   },
 }
@@ -28,7 +29,7 @@ export const reducer = handleActions(
       assign(state, {
         fetching: true,
       }),
-    [E.API__GET_RECENT__SUCCESS]: (state, { payload }) => {
+    [E.API__GET_RECENT__SUCCESS]: (state, { payload }: IActionGetRecentSuccess) => {
       const nextIds = merge(state.data.byId, payload.data)
       return assign(state, {
         fetching: false,

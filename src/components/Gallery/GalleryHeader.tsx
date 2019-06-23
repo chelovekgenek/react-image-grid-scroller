@@ -13,11 +13,11 @@ interface IStateProps {
 }
 interface IProps extends IStateProps {}
 
-export const GalleryHeader: React.FC<IProps> = ({ pagination, itemsAmount }) => (
+export const GalleryHeader: React.FC<IProps> = ({ pagination: { page, pages, perpage }, itemsAmount }) => (
   <Row>
-    <Col lg={{ span: 8, offset: 20 }} xs={{ span: 8, offset: 16 }}>
+    <Col lg={{ span: 8, offset: 16 }} xs={{ span: 24 }}>
       <span>
-        {pagination.page} / {pagination.pages} (unique: {itemsAmount})
+        {page} / {pages} (unique: {page * perpage} | total: {itemsAmount})
       </span>
     </Col>
   </Row>
