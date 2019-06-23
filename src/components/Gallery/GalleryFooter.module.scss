@@ -1,6 +1,7 @@
 .container {
   width: 100%;
-
+  position: absolute;
+  bottom: 0;
   .spinner {
     animation: GalleryFooter-spinner infinite 4s linear;
     height: 240px;
