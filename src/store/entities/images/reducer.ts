@@ -29,6 +29,10 @@ export const reducer = handleActions(
       assign(state, {
         fetching: true,
       }),
+    [E.API__GET_RECENT__FAILURE]: state =>
+      assign(state, {
+        fetching: false,
+      }),
     [E.API__GET_RECENT__SUCCESS]: (state, { payload }: IActionGetRecentSuccess) => {
       const nextIds = merge(state.data.byId, payload.data)
       return assign(state, {

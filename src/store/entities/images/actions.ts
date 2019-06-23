@@ -8,4 +8,5 @@ export enum E {
 }
 
 export const getRecentRequest = createAction(E.API__GET_RECENT__REQUEST)
+export const getRecentFailure = createAction(E.API__GET_RECENT__FAILURE)
 export const getRecentSuccess = createAction<IGetRecentSuccessPayload>(E.API__GET_RECENT__SUCCESS)

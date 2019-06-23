@@ -1,9 +1,9 @@
 import { takeEvery, call, put, select } from "redux-saga/effects"
 
-import { extractPagination, IFlickrResBody, IFlickrReqParams } from "helpers"
+import { extractPagination, IFlickrResBody, IFlickrReqParams, showNotification } from "helpers"
 
 import * as api from "./api"
-import { E, getRecentSuccess } from "./actions"
+import { E, getRecentSuccess, getRecentFailure } from "./actions"
 import { getPagination } from "./selectors"
 import { IState } from "./reducer"
 import { extractGetRecentData } from "./action.helpers"
@@ -23,7 +23,11 @@ function* handleGetRecent() {
 
     yield put(getRecentSuccess({ pagination, data }))
   } catch (e) {
-    console.error(e)
+    console.error(e.message)
+    yield put(getRecentFailure())
+    yield call(showNotification, "error", {
+      message: e.message,
+    })
   }
 }
 
