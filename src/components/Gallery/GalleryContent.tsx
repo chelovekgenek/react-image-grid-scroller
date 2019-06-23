@@ -62,7 +62,7 @@ export const GalleryContent: React.FC<IProps> = ({ data, itemsCount, fetching, g
                 overscanCount={5}
                 onItemsRendered={newItemsRendered}
               >
-                {(props: GridChildComponentProps) => <GalleryCell columnCount={colCount} {...props} />}
+                {(props: GridChildComponentProps) => <GalleryCell {...props} columnCount={colCount} />}
               </FixedSizeGrid>
             )
           }}
