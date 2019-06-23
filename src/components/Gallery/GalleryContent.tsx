@@ -1,26 +1,87 @@
 import React from "react"
 import { connect } from "react-redux"
-import StackGrid from "react-stack-grid"
+import { FixedSizeGrid, GridChildComponentProps, GridOnItemsRenderedProps } from "react-window"
+import AutoSizer from "react-virtualized-auto-sizer"
+import InfiniteLoader from "react-window-infinite-loader"
 
-import { getData } from "store/entities/images"
+import { getData, getItemsCount, getFetching, getRecentRequest, getHasNextPage } from "store/entities/images"
 import { IReduxState } from "store/entities"
 
-import { GalleryItem } from "./GalleryItem"
+import { GalleryCell } from "./GalleryCell"
 
+interface IDispatchProps {
+  getImages: typeof getRecentRequest
+}
 interface IStateProps {
-  data: IReduxState["images"]["data"]
+  fetching: ReturnType<typeof getFetching>
+  data: ReturnType<typeof getData>
+  hasNextPage: ReturnType<typeof getHasNextPage>
+  itemsCount: ReturnType<typeof getItemsCount>
 }
 
-interface IProps extends IStateProps {}
+interface IProps extends IStateProps, IDispatchProps {}
 
-export const GalleryContent: React.FC<IProps> = ({ data }) => (
-  <StackGrid columnWidth={180} duration={0} monitorImagesLoaded>
-    {data.allIds.map(key => (
-      <GalleryItem key={key} data={data.byId[key]} />
-    ))}
-  </StackGrid>
-)
+export const GalleryContent: React.FC<IProps> = ({ data, itemsCount, fetching, getImages, hasNextPage }) => {
+  return (
+    <InfiniteLoader
+      isItemLoaded={(index: number) => !hasNextPage || index < itemsCount}
+      itemCount={itemsCount}
+      loadMoreItems={getImages}
+      style={{ height: "100%" }}
+    >
+      {({ onItemsRendered, ref }: IInfiniteLoaderProps) => {
+        const newItemsRendered = ({
+          overscanRowStartIndex,
+          overscanColumnStopIndex,
+          overscanRowStopIndex,
+          visibleRowStopIndex,
+        }: GridOnItemsRenderedProps) => {
+          if (hasNextPage && !fetching && visibleRowStopIndex > overscanRowStopIndex - 1) {
+            getImages()
+          }
+          onItemsRendered({
+            visibleStartIndex: overscanRowStartIndex * overscanColumnStopIndex,
+            visibleStopIndex: overscanRowStopIndex * overscanColumnStopIndex,
+          })
+        }
+        return (
+          <AutoSizer>
+            {({ height, width }) => {
+              const colCount = Math.floor(width / 200)
+              const rowCount = Math.ceil(itemsCount / colCount)
+              return (
+                <FixedSizeGrid
+                  ref={ref}
+                  rowCount={rowCount}
+                  rowHeight={320}
+                  columnCount={colCount}
+                  columnWidth={200}
+                  useIsScrolling
+                  height={height}
+                  width={width}
+                  itemData={data}
+                  overscanCount={5}
+                  onItemsRendered={newItemsRendered}
+                >
+                  {(props: GridChildComponentProps) => <GalleryCell columnCount={colCount} {...props} />}
+                </FixedSizeGrid>
+              )
+            }}
+          </AutoSizer>
+        )
+      }}
+    </InfiniteLoader>
+  )
+}
 
-export default connect((state: IReduxState) => ({
-  data: getData(state),
-}))(GalleryContent)
+export default connect(
+  (state: IReduxState) => ({
+    fetching: getFetching(state),
+    data: getData(state),
+    hasNextPage: getHasNextPage(state),
+    itemsCount: getItemsCount(state),
+  }),
+  {
+    getImages: getRecentRequest,
+  },
+)(GalleryContent)

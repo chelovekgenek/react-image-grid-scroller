@@ -1,0 +1,12 @@
+.container {
+  &:global(.ant-card) {
+    height: 300px;
+    margin: 10px;
+  }
+  :global(.ant-card-cover) {
+    height: 250px;
+    & > * {
+      display: inline-flex;
+    }
+  }
+}

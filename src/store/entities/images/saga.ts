@@ -19,7 +19,7 @@ function* handleGetRecent() {
 
     const images: IFlickrResBody = yield call(api.getRecent, params)
     const pagination = yield call(extractPagination, images)
-    const data = yield call(extractGetRecentData, images, 5)
+    const data = yield call(extractGetRecentData, images, 11)
 
     yield put(getRecentSuccess({ pagination, data }))
   } catch (e) {

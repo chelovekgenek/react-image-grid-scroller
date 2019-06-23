@@ -11,10 +11,15 @@ body {
   min-height: 100vh;
 }
 
+#root {
+  height: 100%;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .ant-layout {
   background-color: inherit;
+  height: 100%;
 }
