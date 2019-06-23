@@ -21,58 +21,56 @@ interface IStateProps {
 
 interface IProps extends IStateProps, IDispatchProps {}
 
-export const GalleryContent: React.FC<IProps> = ({ data, itemsCount, fetching, getImages, hasNextPage }) => {
-  return (
-    <InfiniteLoader
-      isItemLoaded={(index: number) => !hasNextPage || index < itemsCount}
-      itemCount={itemsCount}
-      loadMoreItems={getImages}
-      style={{ height: "100%" }}
-    >
-      {({ onItemsRendered, ref }: IInfiniteLoaderProps) => {
-        const newItemsRendered = ({
-          overscanRowStartIndex,
-          overscanColumnStopIndex,
-          overscanRowStopIndex,
-          visibleRowStopIndex,
-        }: GridOnItemsRenderedProps) => {
-          if (hasNextPage && !fetching && visibleRowStopIndex > overscanRowStopIndex - 1) {
-            getImages()
-          }
-          onItemsRendered({
-            visibleStartIndex: overscanRowStartIndex * overscanColumnStopIndex,
-            visibleStopIndex: overscanRowStopIndex * overscanColumnStopIndex,
-          })
+export const GalleryContent: React.FC<IProps> = ({ data, itemsCount, fetching, getImages, hasNextPage }) => (
+  <InfiniteLoader
+    isItemLoaded={(index: number) => !hasNextPage || index < itemsCount}
+    itemCount={itemsCount}
+    loadMoreItems={getImages}
+    style={{ height: "100%" }}
+  >
+    {({ onItemsRendered, ref }: IInfiniteLoaderProps) => {
+      const newItemsRendered = ({
+        overscanRowStartIndex,
+        overscanColumnStopIndex,
+        overscanRowStopIndex,
+        visibleRowStopIndex,
+      }: GridOnItemsRenderedProps) => {
+        if (hasNextPage && !fetching && visibleRowStopIndex > overscanRowStopIndex - 1) {
+          getImages()
         }
-        return (
-          <AutoSizer>
-            {({ height, width }) => {
-              const colCount = Math.floor(width / 200)
-              const rowCount = Math.ceil(itemsCount / colCount)
-              return (
-                <FixedSizeGrid
-                  ref={ref}
-                  rowCount={rowCount}
-                  rowHeight={320}
-                  columnCount={colCount}
-                  columnWidth={200}
-                  useIsScrolling
-                  height={height}
-                  width={width}
-                  itemData={data}
-                  overscanCount={5}
-                  onItemsRendered={newItemsRendered}
-                >
-                  {(props: GridChildComponentProps) => <GalleryCell columnCount={colCount} {...props} />}
-                </FixedSizeGrid>
-              )
-            }}
-          </AutoSizer>
-        )
-      }}
-    </InfiniteLoader>
-  )
-}
+        onItemsRendered({
+          visibleStartIndex: overscanRowStartIndex * overscanColumnStopIndex,
+          visibleStopIndex: overscanRowStopIndex * overscanColumnStopIndex,
+        })
+      }
+      return (
+        <AutoSizer>
+          {({ height, width }) => {
+            const colCount = Math.floor(width / 200)
+            const rowCount = Math.ceil(itemsCount / colCount)
+            return (
+              <FixedSizeGrid
+                ref={ref}
+                rowCount={rowCount}
+                rowHeight={320}
+                columnCount={colCount}
+                columnWidth={200}
+                useIsScrolling
+                height={height}
+                width={width}
+                itemData={data}
+                overscanCount={5}
+                onItemsRendered={newItemsRendered}
+              >
+                {(props: GridChildComponentProps) => <GalleryCell columnCount={colCount} {...props} />}
+              </FixedSizeGrid>
+            )
+          }}
+        </AutoSizer>
+      )
+    }}
+  </InfiniteLoader>
+)
 
 export default connect(
   (state: IReduxState) => ({
