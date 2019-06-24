@@ -57,7 +57,7 @@ export const GalleryContent: React.FC<IProps> = ({ data, itemsCount, fetching, g
                   rowCount={rowCount}
                   rowHeight={320}
                   columnCount={colCount}
-                  columnWidth={200}
+                  columnWidth={width / colCount}
                   useIsScrolling
                   height={height}
                   width={width}

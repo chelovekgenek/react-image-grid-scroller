@@ -1,7 +1,7 @@
 .container {
   &:global(.ant-card) {
     height: 300px;
-    margin: 10px;
+    margin: auto;
   }
   :global(.ant-card-cover) {
     height: 250px;
